@@ -1,4 +1,5 @@
-#define WINDOW_MOTOR 2
+#define WINDOW_OPEN_PIN 10
+#define WINDOW_CLOSE_PIN 9
 #define THERMOMETER 12
 
 #define LCD_RS 3
@@ -20,18 +21,21 @@ LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_DB4, LCD_DB5, LCD_DB6, LCD_DB7);
 void setup() {
   sensors.begin();
   Serial.begin(9600);
-
-  pinMode(WINDOW_MOTOR, OUTPUT);
-
   lcd.begin(16,2);
   lcd.clear();
 }
 
-void click_switch(int sw_delay) {
-  digitalWrite(WINDOW_MOTOR, HIGH);
-  delay(sw_delay);
-  digitalWrite(WINDOW_MOTOR, LOW);
-  delay(sw_delay);
+void window_open() {
+  // pinMode workaround explanation: 
+  // https://electronics.stackexchange.com/a/508672
+  pinMode(WINDOW_OPEN_PIN, OUTPUT);
+  Serial.println("HIGH");
+  digitalWrite(WINDOW_OPEN_PIN, HIGH);
+  delay(5000);
+  Serial.println("LOW");
+  digitalWrite(WINDOW_OPEN_PIN, LOW);
+  delay(5000);
+  pinMode(WINDOW_OPEN_PIN, INPUT);
 }
 
 int16_t get_room_temp() {
@@ -40,10 +44,16 @@ int16_t get_room_temp() {
   return temp;
 }
 
-void loop() {
+void print_temp(){  
   int16_t temp = get_room_temp();
   Serial.println(temp);
   lcd.clear();
   lcd.setCursor(7,0);
   lcd.print(temp);
 }
+
+void loop() {
+  window_open();
+}
+
+// TODO: check if relay remains state after power down
