@@ -32,3 +32,9 @@ Działanie programu:
     - wyświetl aktualną wartość Co
     - pojedyncze wciśnięcie Pi: Co = Co + 1 min
     - pojedyncze wciśnięcie Pd: Co = Co - 1 min
+
+Max power consumption:
+- Arduino Nano: 280 mA [src](https://arduino.stackexchange.com/questions/926/what-is-the-maximum-power-consumption-of-the-arduino-nano-3-0)
+- LCD WD-C1602M: 3 mA (datasheet)
+- Relay x2: 122 mA (measured)
+SUM: 405 mA
