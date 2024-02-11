@@ -1,39 +1,16 @@
 # windowed-couscous
 
-Definicje:
-- PrZ: przekaźnik zwierający fazę na zacisku siłownika odpowiadającym za zamknięcie okna
-- PrO: przekaźnik zwierający fazę na zacisku siłownika odpowiadającym za otwarcie okna
-- Tz: temperatura zadana, przy której następuje zmiana stanu okna
-- To: temperatura otoczenia w którym działa urządzenie
-- Pi: przycisk odpowiadający za inkrementację temperatury zadanej (Tz)
-- Pd: przycisk odpowiadający za dekrementację temperatury zadanej (Tz)
-- SwM: przełącznik trybu konfiguracji, 3-pozycyjny
-- Co: częstwotliwość sprawdzania temperatury
-- Cz: czas zmiany stanu okna (otwierania/zamykania) [s]
-- Kz: komunikat przy zamykaniu okna
-- Ko: komunikat przy otwieraniu okna
- 
-Działanie programu:
-- sprawdź stan przełącznika SwM:
-    - jeśli SwM jest ustawiony na środkową pozycję (tryb normalny):
-        - wyświetl aktualną temperaturę
-        - sprawdź zmiany temperatury otoczenia co Co sekund:
-            - IF To > Tz
-                - wyslij sygnal na przekaźnik PrO przez czas Cz (otwórz okno)
-                - wyświetl komunikat Ko
-            - IF To < Tz
-                - wyślij sygnał na przekaźnik PrZ przez czas Cz (zamknij okno)
-                - wyświetl komunikat Kz
-- jeśli SwM jest ustawiony w lewą skrajną pozycję (tryb zmiany temperatury):
-    - wyświetl aktualną wartość Tz
-    - pojedyncze wciśnięcie Pi: Tz = Tz + 1 °C
-    - pojedyncze wciśnięcie Pd: Tz = Tz - 1 °C
-- jeśli SwM jest ustawiony w prawą skrajną pozycję (tryb zmiany częstotliwości sprawdzania):
-    - wyświetl aktualną wartość Co
-    - pojedyncze wciśnięcie Pi: Co = Co + 1 min
-    - pojedyncze wciśnięcie Pd: Co = Co - 1 min
+## Objective
+The main objective of the project is to control state of the window with AC motor, dependent on the temperature inside a room. 
 
-Max power consumption:
+## Communication with the user
+Device is supplied with the LCD screen in which user can check the current room temperature, operating mode and settings. Operating mode is being changed with 3-step switch.
+Device has also two push-buttons, with which user can set up the temperature above which window will be open and below which it will be closed. He can also change the interval of the temperature check. 
+
+## Circuit
+![diagram](https://github.com/kajedot/windowed-couscous/schemas/diagram.png)
+
+## Max power consumption calculation
 - Arduino Nano: 280 mA [src](https://arduino.stackexchange.com/questions/926/what-is-the-maximum-power-consumption-of-the-arduino-nano-3-0)
 - LCD WD-C1602M: 3 mA (datasheet)
 - Relay x2: 122 mA (measured)
