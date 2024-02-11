@@ -8,7 +8,7 @@ Device is supplied with the LCD screen in which user can check the current room 
 Device has also two push-buttons, with which user can set up the temperature above which window will be open and below which it will be closed. He can also change the interval of the temperature check. 
 
 ## Circuit
-![diagram](https://github.com/kajedot/windowed-couscous/schemas/diagram.png)
+![diagram](https://github.com/kajedot/windowed-couscous/assets/22113075/d5ba23b2-9bff-47c0-96fa-43f63a085970)
 
 ## Max power consumption calculation
 - Arduino Nano: 280 mA [src](https://arduino.stackexchange.com/questions/926/what-is-the-maximum-power-consumption-of-the-arduino-nano-3-0)
