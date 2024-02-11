@@ -2,8 +2,8 @@
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
 
-#define WINDOW_PIN_OPEN 10
-#define WINDOW_PIN_CLOSE 9
+#define WINDOW_PIN_OPEN 9
+#define WINDOW_PIN_CLOSE 11
 
 #define THERM_PIN 12
 
@@ -20,7 +20,7 @@
 #define BUTTON_PIN_INC A2
 #define BUTTON_PIN_DEC A3
 
-#define OPEN_CLOSE_WINDOW_TIME 5000
+#define OPEN_CLOSE_WINDOW_TIME 18000
 #define BEFORE_BUTTON_TIME 200
 
 OneWire oneWire(THERM_PIN);
@@ -28,7 +28,7 @@ DallasTemperature sensors(&oneWire);
 DeviceAddress thermometer;
 LiquidCrystal lcd(LCD_PIN_RS, LCD_PIN_E, LCD_PIN_A, LCD_PIN_B, LCD_PIN_C, LCD_PIN_D);
 
-int tempBorder = 25;
+int tempBorder = 20;
 int refreshMinutes = 5;
 unsigned long lastCheckMs = 0;
 int lastMode = 0;
@@ -54,11 +54,11 @@ void setup() {
 
 void updateWindowStateBasingOnTemp(float temp) {
   lcd.clear();
-  if (temp > tempBorder) {
+  if (temp > tempBorder + 2) {
     lcd.print("OTWIERANIE OKNA");
     windowChange(WINDOW_PIN_OPEN);
   }
-  if (temp < tempBorder) {
+  if (temp < tempBorder - 2) {
     lcd.print("ZAMYKANIE OKNA");
     windowChange(WINDOW_PIN_CLOSE);
   }
@@ -151,4 +151,3 @@ void loop() {
       break;
   }
 }
-
